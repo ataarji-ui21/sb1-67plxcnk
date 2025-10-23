@@ -1,0 +1,1030 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=OpenDyslexic:wght@400;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000000;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(0, 255, 255, 0.02) 0%, transparent 50%);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  hyphens: none;
+  /* Prevent horizontal scrolling and layout breaks */
+  overflow-x: hidden;
+  width: 100vw;
+  max-width: 100%;
+  /* Ensure consistent box-sizing */
+  box-sizing: border-box;
+  /* Improve text rendering at all zoom levels */
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Prevent layout shifts */
+  position: relative;
+}
+
+/* Ensure all elements use border-box sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  /* Prevent ugly word breaks globally */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  hyphens: none;
+}
+
+/* Apply proper text wrapping to all text elements */
+h1, h2, h3, h4, h5, h6, p, span, div, li, td, th, label, button, a {
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
+  word-wrap: break-word !important;
+  /* Prevent text from breaking mid-word */
+  white-space: normal;
+  /* Allow breaking only at natural word boundaries */
+  word-spacing: normal;
+}
+
+/* Special handling for long URLs or technical terms */
+.allow-break {
+  word-break: break-all !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Ensure buttons and interactive elements don't break words */
+button, .btn, a[role="button"] {
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+}
+
+/* For very long single words that must break */
+.force-break-long-words {
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Root font size for consistent rem scaling */
+html {
+  font-size: clamp(15px, 0.9vw + 0.3vh, 18px);
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  /* Prevent zoom-related layout shifts */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+#root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Responsive font scaling for different zoom levels */
+@media screen and (max-width: 1920px) {
+  html { font-size: 15px; }
+}
+
+@media screen and (max-width: 1440px) {
+  html { font-size: 14px; }
+}
+
+@media screen and (max-width: 1024px) {
+  html { font-size: 13px; }
+}
+
+@media screen and (max-width: 768px) {
+  html { font-size: 12px; }
+}
+
+@media screen and (max-width: 480px) {
+  html { font-size: 11px; }
+}
+
+/* Container max-width system for consistent layouts */
+.container-responsive {
+  width: 100%;
+  max-width: min(1400px, 95vw);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+
+/* Flexible grid system that adapts to zoom levels */
+.grid-responsive {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+/* Flexible typography system */
+.text-responsive-xs { font-size: clamp(0.75rem, 2vw, 0.875rem); }
+.text-responsive-sm { font-size: clamp(0.875rem, 2.2vw, 1rem); }
+.text-responsive-base { font-size: clamp(1rem, 2.5vw, 1.125rem); }
+.text-responsive-lg { font-size: clamp(1.125rem, 3vw, 1.25rem); }
+.text-responsive-xl { font-size: clamp(1.25rem, 3.5vw, 1.5rem); }
+.text-responsive-2xl { font-size: clamp(1.5rem, 4vw, 2rem); }
+.text-responsive-3xl { font-size: clamp(2rem, 5vw, 2.5rem); }
+.text-responsive-4xl { font-size: clamp(2.5rem, 6vw, 3rem); }
+.text-responsive-5xl { font-size: clamp(3rem, 7vw, 4rem); }
+
+/* Spacing system that scales with viewport */
+.spacing-responsive-xs { margin: clamp(0.25rem, 1vw, 0.5rem); }
+.spacing-responsive-sm { margin: clamp(0.5rem, 2vw, 1rem); }
+.spacing-responsive-md { margin: clamp(1rem, 3vw, 1.5rem); }
+.spacing-responsive-lg { margin: clamp(1.5rem, 4vw, 2rem); }
+.spacing-responsive-xl { margin: clamp(2rem, 5vw, 3rem); }
+
+/* Prevent layout breaks in flex containers */
+.flex-responsive {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 2vw, 1rem);
+}
+
+.flex-responsive > * {
+  flex: 1 1 auto;
+  min-width: 0; /* Prevent flex items from overflowing */
+}
+
+.font-serif {
+  font-family: 'Orbitron', 'Space Mono', monospace;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  /* Ensure consistent rendering at all zoom levels */
+  font-display: swap;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-display: swap;
+}
+
+.font-premium {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  font-display: swap;
+}
+
+/* Dyslexia-friendly font option - Enhanced */
+.font-dyslexia {
+  font-family: 'OpenDyslexic', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: 0.12em;
+  word-spacing: 0.16em;
+  line-height: 2.0;
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* Dyslexia mode - disable problematic styles */
+.dyslexia-mode * {
+  font-style: normal !important;
+  text-align: left !important;
+  font-family: 'OpenDyslexic', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  letter-spacing: 0.12em !important;
+  line-height: 2.0 !important;
+}
+
+.dyslexia-mode h1,
+.dyslexia-mode h2,
+.dyslexia-mode h3 {
+  line-height: 1.5 !important;
+}
+
+/* Enhanced readability utilities */
+.text-readable {
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  word-spacing: 0.1em;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+  color: var(--text-body);
+}
+
+.text-readable-large {
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  word-spacing: 0.05em;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+  color: var(--text-body);
+}
+
+/* Heading-specific line heights */
+h1, .h1-style { line-height: 1.2; }
+h2, .h2-style { line-height: 1.3; }
+h3, .h3-style { line-height: 1.4; }
+h4, h5, h6 { line-height: 1.5; }
+
+/* Paragraph spacing for readability */
+p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+p + p {
+  margin-top: 1.5rem;
+}
+
+/* WCAG AAA Compliant Color System */
+:root {
+  --text-primary: #ffffff;        /* 21:1 contrast ratio */
+  --text-secondary: #f3f4f6;      /* 18.5:1 contrast ratio */
+  --text-body: #e5e7eb;           /* 15.3:1 contrast ratio */
+  --text-muted: #d1d5db;          /* 12.6:1 contrast ratio - AAA minimum */
+  --text-accessible: #d1d5db;     /* Accessible gray for all content */
+}
+
+/* High contrast text utilities */
+.text-high-contrast {
+  color: var(--text-primary);
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+}
+
+.text-medium-contrast {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.text-accessible-gray {
+  color: var(--text-accessible);
+  font-weight: 400;
+}
+
+/* Body text optimized for readability */
+.text-body-optimized {
+  color: var(--text-body);
+  line-height: 1.6;
+  font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+}
+
+/* Replace low-contrast grays globally */
+.text-gray-300 {
+  color: var(--text-body) !important;
+}
+
+.text-gray-400 {
+  color: var(--text-muted) !important;
+}
+
+.text-gray-500 {
+  color: var(--text-muted) !important;
+}
+
+/* Focus indicators for better accessibility */
+.focus-ring {
+  outline: max(2px, 0.15em) solid #D4AF37;
+  outline-offset: max(2px, 0.1em);
+}
+
+/* Text size utilities for better readability - WCAG AAA Compliant */
+.text-body-sm {
+  font-size: clamp(1rem, 2vw, 1.125rem);      /* Minimum 16px */
+  line-height: 1.6;
+}
+
+.text-body {
+  font-size: clamp(1.125rem, 2.2vw, 1.25rem); /* Optimal 18-20px */
+  line-height: 1.6;
+}
+
+.text-body-lg {
+  font-size: clamp(1.25rem, 2.4vw, 1.5rem);   /* Large 20-24px */
+  line-height: 1.5;
+}
+
+/* Long-form content with extra spacing */
+.text-long-form {
+  font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+  line-height: 1.8;
+  color: var(--text-body);
+}
+
+.text-long-form p + p {
+  margin-top: 1.5rem;
+}
+
+/* Image and media responsiveness */
+img, video, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Prevent overflow issues */
+.overflow-safe {
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+/* Container queries for modern browsers */
+@supports (container-type: inline-size) {
+  .container-query {
+    container-type: inline-size;
+  }
+  
+  @container (max-width: 400px) {
+    .container-query .text-responsive {
+      font-size: 0.875rem;
+    }
+  }
+  
+  @container (min-width: 401px) and (max-width: 800px) {
+    .container-query .text-responsive {
+      font-size: 1rem;
+    }
+  }
+  
+  @container (min-width: 801px) {
+    .container-query .text-responsive {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+/* Zoom-specific adjustments */
+@media screen and (min-resolution: 1.5dppx) {
+  /* High DPI displays */
+  body {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+}
+
+/* Browser-specific fixes */
+@supports (-webkit-appearance: none) {
+  /* Safari-specific fixes */
+  .safari-fix {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+@supports (-moz-appearance: none) {
+  /* Firefox-specific fixes */
+  .firefox-fix {
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Edge/IE specific fixes */
+@supports (-ms-ime-align: auto) {
+  .edge-fix {
+    -ms-text-size-adjust: 100%;
+  }
+}
+
+/* Zoom-proof CSS overrides */
+@media (max-width: 768px) {
+  .grid-cols-2, .grid-cols-3, .grid-cols-4, .grid-cols-5 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .text-7xl, .text-6xl, .text-5xl {
+    font-size: 2rem !important;
+  }
+  
+  .text-4xl, .text-3xl {
+    font-size: 1.5rem !important;
+  }
+  
+  .px-8, .p-8 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .py-8, .p-8 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .max-w-7xl, .max-w-6xl, .max-w-5xl {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+/* Zoom-proof container system */
+.zoom-proof-container {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Enhanced responsive utilities */
+.zoom-safe-text {
+  font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+.zoom-safe-title {
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  line-height: 1.2;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+.zoom-safe-hero {
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  line-height: 1.1;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+.zoom-safe-button {
+  padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  min-height: 44px;
+  min-width: 120px;
+  border-radius: 0.5rem;
+}
+
+.zoom-safe-input {
+  padding: clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  min-height: 44px;
+  border-radius: 0.5rem;
+}
+
+.zoom-safe-container {
+  width: 100%;
+  max-width: 80rem;
+  padding-left: clamp(1rem, 5vw, 2rem);
+  padding-right: clamp(1rem, 5vw, 2rem);
+  margin: 0 auto;
+}
+
+.zoom-safe-grid {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes floatUpEnhanced {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-50vh) scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes gridFlow {
+  0%, 100% {
+    background-position: 0 0;
+    opacity: 0.15;
+  }
+  50% {
+    background-position: 50px 50px;
+    opacity: 0.25;
+  }
+}
+
+@keyframes cardFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(251,191,36,0.2), 0 0 40px rgba(251,191,36,0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(251,191,36,0.4), 0 0 60px rgba(251,191,36,0.2);
+  }
+}
+
+@keyframes neonGlow {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.3), 0 0 10px rgba(212, 175, 55, 0.2), 0 0 15px rgba(212, 175, 55, 0.1);
+  }
+  50% { 
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.3), 0 0 30px rgba(212, 175, 55, 0.2);
+  }
+}
+
+@keyframes borderScan {
+  0% { background-position: -100% 0; }
+  100% { background-position: 100% 0; }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes holographicShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes typewriter1 {
+  0% { opacity: 0; transform: translateX(-20px); }
+  50% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes typewriter2 {
+  0% { opacity: 0; transform: translateX(-20px); }
+  70% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-card-float {
+  animation: cardFloat 6s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.animate-fade-in-up-delay {
+  animation: fadeInUp 1s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fadeInUp 1s ease-out 0.6s forwards;
+  opacity: 0;
+}
+
+.animate-typewriter-1 {
+  animation: typewriter1 2s ease-out forwards;
+}
+
+.animate-typewriter-2 {
+  animation: typewriter2 2.5s ease-out forwards;
+}
+
+.animate-neon-glow {
+  animation: neonGlow 3s ease-in-out infinite;
+}
+
+.animate-border-scan {
+  animation: borderScan 2s linear infinite;
+}
+
+.animate-grid-pulse {
+  animation: gridPulse 4s ease-in-out infinite;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Arrow bullets */
+.bullet::before {
+  content: "→";
+  margin-right: 0.5rem;
+  opacity: 0.85;
+  color: #D4AF37;
+}
+
+/* Section gradient transitions */
+.section-with-gradient::before {
+  content: "";
+  position: absolute;
+  top: -32px;
+  left: 0;
+  right: 0;
+  height: 64px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
+  z-index: 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.6), rgba(212, 175, 55, 0.3));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Selection styling */
+::selection {
+  background: #D4AF37;
+  color: #000;
+}
+
+/* No hyphenation utility class */
+.no-hyphen {
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
+  white-space: normal !important;
+}
+
+/* Glass morphism utility */
+.glass-panel {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Focus states for accessibility */
+button:focus-visible, 
+a:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+/* Premium button effects */
+.premium-button {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cursor spotlight responsive sizing */
+@media (max-width: 1024px) {
+  .cursor-light {
+    background: radial-gradient(400px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.15), rgba(255,255,255,0) 60%) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cursor-light {
+    background: radial-gradient(192px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.12), rgba(255,255,255,0) 60%) !important;
+  }
+}
+
+/* Disable spotlight on reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-light {
+    background: radial-gradient(800px circle at 50% 50%, rgba(255,255,255,0.08), rgba(255,255,255,0) 70%) !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .benefit-card {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .benefit-description {
+    color: #ffffff;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+  }
+  
+  .text-accessible-gray {
+    color: #ffffff;
+  }
+  
+  .text-gray-300,
+  .text-gray-400 {
+    color: #e5e7eb !important;
+  }
+}
+
+/* Dyslexia-friendly preferences */
+@media (prefers-reduced-motion: reduce) {
+  .font-dyslexia {
+    font-family: 'OpenDyslexic', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* Accessibility control classes */
+.text-normal {
+  font-size: 1rem;
+}
+
+.text-large {
+  font-size: 1.125rem;
+}
+
+.text-large h1 { font-size: 1.5em; }
+.text-large h2 { font-size: 1.4em; }
+.text-large h3 { font-size: 1.3em; }
+.text-large p, .text-large div { font-size: 1.125em; }
+
+.text-extra-large {
+  font-size: 1.25rem;
+}
+
+.text-extra-large h1 { font-size: 1.6em; }
+.text-extra-large h2 { font-size: 1.5em; }
+.text-extra-large h3 { font-size: 1.4em; }
+.text-extra-large p, .text-extra-large div { font-size: 1.25em; }
+
+.high-contrast {
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --text-muted: #e5e7eb;
+  --bg-primary: #000000;
+  --bg-secondary: #1f2937;
+}
+
+.high-contrast .text-gray-300,
+.high-contrast .text-gray-400,
+.high-contrast .text-accessible-gray {
+  color: #ffffff !important;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+}
+
+.dyslexia-font,
+.dyslexia-font * {
+  font-family: 'OpenDyslexic', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1.8 !important;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Soft-fade right 22% of any element carrying .spline-fade */
+.spline-fade {
+  mask-image: linear-gradient(to right, #000 78%, transparent);
+  -webkit-mask-image: linear-gradient(to right, #000 78%, transparent);
+}
+
+/* Hide Spline attribution */
+spline-viewer::part(logo) {
+  display: none !important;
+}
+
+spline-viewer {
+  --spline-watermark-display: none;
+}
+
+spline-viewer::shadow .spline-watermark,
+spline-viewer::shadow .logo,
+spline-viewer::shadow [class*="watermark"],
+spline-viewer::shadow [class*="logo"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Disable zoom on Spline viewer */
+spline-viewer {
+  touch-action: pan-y !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  overflow: hidden !important;
+  position: relative !important;
+  will-change: transform !important;
+}
+
+spline-viewer * {
+  touch-action: pan-y !important;
+}
+
+spline-viewer canvas {
+  touch-action: pan-y !important;
+  pointer-events: auto !important;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  transform: translateZ(0) !important;
+}
+
+/* Prevent wheel zoom on Spline */
+spline-viewer canvas::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Additional zoom prevention */
+.spline-fade canvas {
+  -ms-content-zooming: none !important;
+  -ms-touch-action: pan-y !important;
+}
+
+canvas[data-engine="spline"] {
+  background: transparent !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+/* Optimize Spline canvas for mobile devices */
+@media (max-width: 768px) {
+  canvas[data-engine="spline"] {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 300px !important;
+    max-height: 50vh !important;
+  }
+}
+
+/* Prevent Spline interaction conflicts on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  spline-viewer canvas {
+    touch-action: pan-y !important;
+  }
+}
+
+/* Prevent pinch zoom on Spline */
+spline-viewer::part(canvas) {
+  touch-action: pan-y !important;
+}
+
+/* Prevent double-tap zoom on mobile */
+.spline-fade {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Smooth Spline loading animation */
+@keyframes splineFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Reduced motion preferences for Spline */
+@media (prefers-reduced-motion: reduce) {
+  spline-viewer,
+  spline-viewer canvas {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Cross-browser fixes for Spline */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari specific */
+  spline-viewer canvas {
+    -webkit-transform: translateZ(0);
+    -webkit-perspective: 1000;
+  }
+}
+
+@supports (-moz-appearance: none) {
+  /* Firefox specific */
+  spline-viewer canvas {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* High DPI displays optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  canvas[data-engine="spline"] {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+spline-viewer::-webkit-scrollbar {
+  display: none !important;
+}
+
+.focus:not-sr-only:focus,
+.focus-visible:not-sr-only:focus-visible {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Navigation link styles */
+@layer components {
+  .nav-link {
+    @apply text-gray-300 hover:text-amber-400 transition-all duration-300 text-sm tracking-wide font-mono relative focus-visible:outline-2 focus-visible:outline-amber-400 focus-visible:outline-offset-2;
+  }
+  .nav-link span {
+    @apply absolute bottom-0 left-0 w-0 h-px bg-gradient-to-r from-amber-400 to-yellow-400 group-hover:w-full transition-all duration-300;
+  }
+  
+  .cta-button {
+    @apply relative overflow-hidden;
+  }
+  
+  .cta-button::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-amber-300 via-yellow-300 to-amber-400 opacity-0 transition-opacity duration-300;
+  }
+  
+  .cta-button:hover::before {
+    @apply opacity-20;
+  }
+  
+  .cta-button:active {
+    @apply transform scale-95;
+  }
+}
+
+/* Print styles for accessibility */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .text-white,
+  .text-gray-300,
+  .text-gray-400 {
+    color: black !important;
+  }
+  
+  .bg-black,
+  .bg-gray-900,
+  .bg-gray-950 {
+    background: white !important;
+  }
+}
